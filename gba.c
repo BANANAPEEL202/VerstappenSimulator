@@ -99,6 +99,16 @@ void drawRollingBackgroundDMA(int offset, const u16 *image) {
 
 }
 
+void drawWrappingImage(int row, int col, int width, int height, const u16 *image) {
+    for (int i = 0; i < height; i++) {
+        DMA[3].cnt = 0;
+        DMA[3].src = image+i*width;
+        DMA[3].dst =  (videoBuffer + OFFSET(row+i, col, WIDTH)%38400);
+        DMA[3].cnt = width | DMA_SOURCE_INCREMENT | DMA_DESTINATION_INCREMENT | DMA_ON;
+    }
+
+}
+
 /*
   Draws a rectangular chunk of a fullscreen image to the video buffer.
   The width and height, as well as the top left corner of the chunk to be drawn, are passed as parameters.

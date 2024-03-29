@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "images/background.h"
 #include "images/redbull.h"
+#include "images/leftCurb.h"
+#include "images/rightCurb.h"
+#include "images/startScreen.h"
 
 #include "gba.h"
 /* TODO: */
@@ -36,8 +39,9 @@ int main(void) {
   playerCar.image = redbull;
 
   // Load initial application state
-  enum gba_state state = START;
-  int roll = 0;
+  enum gba_state state = START; //START;
+  int offset = 0;
+
   while (1) {
     currentButtons = BUTTONS; // Load the current state of the buttons
 
@@ -47,25 +51,30 @@ int main(void) {
     waitForVBlank();
     switch (state) {
       case START:
-          //drawRollingBackgroundDMA(roll, background);
-          drawFullScreenImageDMA(background);
-            if (KEY_DOWN(BUTTON_LEFT, BUTTONS)) {
+          drawFullScreenImageDMA(startScreen);
+          if (KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons)) {
+              fillScreenDMA(GRAY);
+              state = PLAY;
+          }
+        break;
+        case PLAY:
+            drawImageDMA(playerCar.y, playerCar.x, REDBULL_WIDTH, REDBULL_HEIGHT, playerCar.image);
+            drawWrappingImage(offset, 0, LEFTCURB_WIDTH, LEFTCURB_HEIGHT, leftCurb);
+            drawWrappingImage(offset, 110, RIGHTCURB_WIDTH, RIGHTCURB_HEIGHT, rightCurb);
+            //controls
+            if (KEY_DOWN(BUTTON_LEFT, currentButtons) && playerCar.x > 0+LEFTCURB_WIDTH) {
                 playerCar.x -= 1;
             }
-            if (KEY_DOWN(BUTTON_RIGHT, BUTTONS)) {
+            if (KEY_DOWN(BUTTON_RIGHT, currentButtons) && playerCar.x+REDBULL_WIDTH < 110) {
                 playerCar.x += 1;
             }
-            if (KEY_DOWN(BUTTON_DOWN, BUTTONS)) {
+            if (KEY_DOWN(BUTTON_DOWN, currentButtons) && playerCar.y+REDBULL_HEIGHT-40<HEIGHT) {
                 playerCar.y += 1;
             }
-            if (KEY_DOWN(BUTTON_UP, BUTTONS)) {
+            if (KEY_DOWN(BUTTON_UP, currentButtons) && playerCar.y > 0) {
                 playerCar.y -= 1;
             }
-            drawImageDMA(playerCar.y, playerCar.x, REDBULL_WIDTH, REDBULL_HEIGHT, playerCar.image);
 
-        // state = ?
-        break;
-      case PLAY:
         // state = ?
         break;
       case WIN:
@@ -75,9 +84,9 @@ int main(void) {
         // state = ?
         break;
     }
-    roll+=3;
-    if (roll > HEIGHT) {
-        roll=0;
+    offset+=5;
+    if (offset > HEIGHT) {
+        offset=0;
     }
     previousButtons = currentButtons; // Store the current state of the buttons
   }

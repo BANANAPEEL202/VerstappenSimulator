@@ -31,7 +31,8 @@ typedef unsigned char u8;
 #define CYAN COLOR(0, 31, 31)
 #define YELLOW COLOR(31, 31, 0)
 #define BLACK COLOR(0, 0, 0)
-#define GRAY COLOR(5, 5, 5)
+#define GRAY COLOR(13, 13, 13)
+
 
 // The size of the GBA Screen
 #define WIDTH 240
@@ -61,7 +62,7 @@ extern volatile unsigned short *videoBuffer;
 // Remember that a button is recently pressed if it wasn't pressed in the last
 // input (oldButtons) but is pressed in the current input. Use the KEY_DOWN
 // macro to check if the button was pressed in the inputs.
-#define KEY_JUST_PRESSED(key, buttons, oldbuttons)
+#define KEY_JUST_PRESSED(key, buttons, oldbuttons) (KEY_DOWN(key, buttons) && (~(KEY_DOWN(key, buttons))))
 
 // ---------------------------------------------------------------------------
 //                       DMA
@@ -138,6 +139,7 @@ void setPixel(int row, int col, u16 color);
 void drawRectDMA(int row, int col, int width, int height, volatile u16 color);
 void drawFullScreenImageDMA(const u16 *image);
 void drawRollingBackgroundDMA(int offset, const u16 *image);
+void drawWrappingImage(int row, int col, int width, int height, const u16 *image);
 void drawImageDMA(int row, int col, int width, int height, const u16 *image);
 void undrawImageDMA(int row, int col, int width, int height, const u16 *image);
 void fillScreenDMA(volatile u16 color);

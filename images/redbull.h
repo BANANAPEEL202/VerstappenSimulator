@@ -1,11 +1,11 @@
 /*
  * Exported with nin10kit v1.8
- * Invocation command was nin10kit --mode=3 redbull redbull.png 
- * Time-stamp: Thursday 03/28/2024, 22:50:15
+ * Invocation command was nin10kit --mode=3 redbull redBull.png 
+ * Time-stamp: Friday 03/29/2024, 15:16:25
  * 
  * Image Information
  * -----------------
- * redbull.png 19@50
+ * redBull.png 21@53
  * 
  * All bug reports / feature requests are to be filed here https://github.com/TricksterGuy/nin10kit/issues
  */
@@ -13,11 +13,11 @@
 #ifndef REDBULL_H
 #define REDBULL_H
 
-extern const unsigned short redbull[950];
-#define REDBULL_SIZE 1900
-#define REDBULL_LENGTH 950
-#define REDBULL_WIDTH 19
-#define REDBULL_HEIGHT 50
+extern const unsigned short redbull[1113];
+#define REDBULL_SIZE 2226
+#define REDBULL_LENGTH 1113
+#define REDBULL_WIDTH 21
+#define REDBULL_HEIGHT 53
 
 #endif
 
