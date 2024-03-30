@@ -16,6 +16,7 @@
 #include "images/scoreBackground.h"
 #include "images/loseScreen.h"
 #include "images/winScreen.h"
+#include "images/startScreen2.h"
 
 #include "gba.h"
 
@@ -48,7 +49,6 @@ int main(void) {
     while (1) {
         currentButtons = BUTTONS; // Load the current state of the buttons
 
-        /* TODO: */
         // Manipulate the state machine below as needed //
         // NOTE: Call waitForVBlank() before you draw
         waitForVBlank();
@@ -71,7 +71,13 @@ int main(void) {
 
                 int opponentIndex = 1;
 
-                drawFullScreenImageDMA(startScreen);
+
+                if (vBlankCounter%120 < 60) {
+                    drawFullScreenImageDMA(startScreen);
+                }
+                else {
+                    drawFullScreenImageDMA(startScreen2);
+                }
                 if (KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons)) {
                     fillScreenDMA(GRAY);
                     drawText(driverNames, colors);

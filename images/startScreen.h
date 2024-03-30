@@ -1,7 +1,7 @@
 /*
  * Exported with nin10kit v1.8
  * Invocation command was nin10kit --mode=3 startScreen startScreen.png 
- * Time-stamp: Friday 03/29/2024, 15:40:39
+ * Time-stamp: Saturday 03/30/2024, 23:38:37
  * 
  * Image Information
  * -----------------
