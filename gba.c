@@ -93,7 +93,12 @@ void drawRollingBackgroundDMA(int offset, const u16 *image) {
     for (int i = 0; i < HEIGHT; i++) {
         DMA[3].cnt = 0;
         DMA[3].src = image+i*WIDTH;
-        DMA[3].dst = videoBuffer + ((offset+i)*WIDTH)%38400;
+        if (*(videoBuffer + ((offset+i)*WIDTH)) > 38400) {
+            DMA[3].dst = videoBuffer + ((offset+i)*WIDTH)-38400;
+        }
+        else {
+            DMA[3].dst = videoBuffer + ((offset + i) * WIDTH) % 38400;
+        }
         DMA[3].cnt = WIDTH | DMA_SOURCE_INCREMENT | DMA_DESTINATION_INCREMENT | DMA_ON;
     }
 
@@ -121,6 +126,16 @@ void undrawImageDMA(int row, int col, int width, int height, const u16 *image) {
         DMA[3].src = image+i*WIDTH+col;
         DMA[3].dst =  (videoBuffer + i*WIDTH+col);
         DMA[3].cnt = width | DMA_SOURCE_INCREMENT | DMA_DESTINATION_INCREMENT | DMA_ON;
+    }
+}
+
+void drawExplosionSlow(int row, int col, int width, int height, const u16 *image) {
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            if (image[OFFSET(j, i, width)]) {
+                setPixel(row + j, col + i, image[OFFSET(j, i, width)]);
+            }
+        }
     }
 }
 

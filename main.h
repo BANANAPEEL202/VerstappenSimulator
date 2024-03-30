@@ -3,12 +3,18 @@
 
 #include "gba.h"
 
+void updateOpponentCar(const unsigned short* image, int* opponentIndex);
+int handleCollisions(void);
+void drawText(char* driverNames[], unsigned short colors[]);
+void swap(int index1, int index2, char* driverNames[], unsigned short colors[]);
+
 // TODO: Create any necessary structs
 
 struct Car {
-    int x;
-    int y;
+    double x;
+    double y;
     const u16* image;
+    int passed;
 };
 
 /*
