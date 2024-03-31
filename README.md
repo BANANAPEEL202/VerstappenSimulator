@@ -1,7 +1,7 @@
 # VerstappenSimulator
  ![startScreen](https://github.com/BANANAPEEL202/VerstappenSimulator/assets/67805049/237a13f5-33d1-4eef-a4a9-7702754159b2)
 
-This is a Max Verstappen Simulator on the Nintendo Game Boy Advanced. Overtake 4 opponents to finish in P1. 
+This is a Max Verstappen Simulator on the Nintendo Game Boy Advanced. Overtake 4 opponents without crashing to finish in P1 and track your position on the leaderboard. 
 
 # Controls
 **Movement** - Up, down, left, right arrows <br />
