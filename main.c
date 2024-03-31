@@ -1,9 +1,7 @@
 #include "main.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "images/background.h"
 #include "images/redbull.h"
 #include "images/leftCurb.h"
 #include "images/rightCurb.h"
@@ -18,8 +16,8 @@
 #include "images/winScreen.h"
 #include "images/startScreen2.h"
 #include "images/redbullLeft.h"
-#include "images/garbage.h"
 #include "images/redbullRight.h"
+#include "images/finishLine.h"
 
 #include "gba.h"
 
@@ -74,7 +72,7 @@ int main(void) {
                 };
 
                 int opponentIndex = 1;
-
+                int finishLineY = 0;
 
                 if (vBlankCounter%120 < 60) {
                     drawFullScreenImageDMA(startScreen);
@@ -89,6 +87,21 @@ int main(void) {
                 }
                 break;
             case PLAY:
+                if (opponentIndex >= 5 ) { //hacky timer
+                    if (opponentIndex > 75) {
+                        if (finishLineY < HEIGHT) {
+                            drawRectDMA(finishLineY, LEFTCURB_WIDTH, FINISHLINE_WIDTH, FINISHLINE_HEIGHT, GRAY);
+                        }
+                        finishLineY += 5;
+                        if (finishLineY < HEIGHT) {
+                        drawImageDMA(finishLineY, LEFTCURB_WIDTH, FINISHLINE_WIDTH, FINISHLINE_HEIGHT, finishLine);
+                    }   }
+
+                    opponentIndex++;
+                }
+                if (finishLineY > HEIGHT + 200) {
+                    state = WIN;
+                }
                 drawImageDMA(playerCar.y, playerCar.x, REDBULL_WIDTH, REDBULL_HEIGHT, playerCar.image);
                 updateOpponentCar(*carArray[opponentIndex], &opponentIndex);
                 if (opponentCar.passed == 1) { //if pass opponent, update leaderboard
@@ -133,12 +146,7 @@ int main(void) {
                     offset = 0;
                 }
 
-                if (opponentIndex >= 5) { //hacky timer
-                    opponentIndex++;
-                }
-                if (opponentIndex > 5+100) {
-                    state = WIN;
-                }
+
 
                 break;
             case EXPLOSION:
