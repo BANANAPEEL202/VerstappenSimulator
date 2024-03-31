@@ -17,6 +17,8 @@
 #include "images/loseScreen.h"
 #include "images/winScreen.h"
 #include "images/startScreen2.h"
+#include "images/redbullLeft.h"
+#include "images/redbullRight.h"
 
 #include "gba.h"
 
@@ -101,9 +103,14 @@ int main(void) {
                 //controls
                 if (KEY_DOWN(BUTTON_LEFT, currentButtons) && playerCar.x > 0 + LEFTCURB_WIDTH) {
                     playerCar.x -= 1;
+                    playerCar.image = redbullLeft;
                 }
-                if (KEY_DOWN(BUTTON_RIGHT, currentButtons) && playerCar.x + REDBULL_WIDTH < 110) {
+                else if (KEY_DOWN(BUTTON_RIGHT, currentButtons) && playerCar.x + REDBULL_WIDTH < 110) {
                     playerCar.x += 1;
+                    playerCar.image = redbullRight;
+                }
+                else {
+                    playerCar.image = redbull;
                 }
                 if (KEY_DOWN(BUTTON_DOWN, currentButtons) && playerCar.y + REDBULL_HEIGHT - 40 < HEIGHT) {
                     playerCar.y += 1;
