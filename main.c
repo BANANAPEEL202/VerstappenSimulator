@@ -18,6 +18,7 @@
 #include "images/winScreen.h"
 #include "images/startScreen2.h"
 #include "images/redbullLeft.h"
+#include "images/garbage.h"
 #include "images/redbullRight.h"
 
 #include "gba.h"
@@ -56,6 +57,7 @@ int main(void) {
         waitForVBlank();
         switch (state) {
             case START:
+
                 //initializing variables
                 playerCar.x = 60;
                 playerCar.y = 105;
@@ -154,7 +156,12 @@ int main(void) {
                 char line1[] = "Crashed while";
                 drawString(65, 148, line1, WHITE);
                 char line2[] = "overtaking ";
-                strcat(line2, driverNames[opponentIndex]);
+                if (opponentCar.passed != 0) {
+                    strcat(line2, driverNames[opponentIndex-1]);
+                }
+                else {
+                    strcat(line2, driverNames[opponentIndex]);
+                }
                 char line3[] ="for P";
                 char place[2];
                 sprintf(place, "%d", -opponentIndex+5);
