@@ -9,6 +9,8 @@ This is a Max Verstappen Simulator on the Nintendo Game Boy Advanced. Overtake 4
 **Start Game** - Start key (eneter) <br />
 
 # Gameplay
-https://github.com/BANANAPEEL202/VerstappenSimulator/assets/67805049/96fed9f9-1354-4c51-b8ef-2975013ccc8c
+https://github.com/BANANAPEEL202/VerstappenSimulator/assets/67805049/ef711bde-18fb-47ad-97c4-6d0657b0439f
+
+
 
 
